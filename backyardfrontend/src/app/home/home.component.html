@@ -1,0 +1,346 @@
+<div class="container-fluid mt-5">
+
+  <div class="row">
+    <div class="col-md-3" id="left">
+      <div class="card">
+        <div class="card-header" id="card-header-color">
+          <h5>Table of contents</h5>
+        </div>
+        <div class="card-body">
+          <div id="toc_container">
+            <!-- <p class="toc_title">Contents</p> -->
+            <ul class="toc_list">
+              <li><a href="#about_point_header" class="nounderline">1. About</a></li>
+              <li><a href="#database_point_header" class="nounderline">2. Database design</a></li>
+              <li><a href="#springboot_point_header" class="nounderline">3. Principles and Architecture</a></li>
+              <li><a href="#unittesting_point_header" class="nounderline">4. Unit testing</a></li>
+              <li><a href="#Third_Point_Header" class="nounderline">5. Deploy on Heroku</a></li>
+              <li><a href="#reference_point_header" class="nounderline">6. References</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" id="middle">
+      <div class="card">
+        <div class="card border-0" id="logo_point_header"><img src="assets/images/logo.png"></div>
+        <div class="card-body">
+          <h1 class="card-title" id="about_point_header">About the app</h1>
+          <div class="card-text mb-3">
+            On this app, every day client-partners can rent out their backyards to visiting customers as intimate,
+            inexpensive wedding venues similar to how one would rent out their living space on AirBnB. The following
+            showcases the example UI for the two types of clients that would be interacting with this app.
+          </div>
+          <div class="card-footer mb-5">
+            <h5 class="card-title">Language it uses</h5>
+            <p class="card-text">Java, Html, CSS, Typescript, SQL</p>
+            <h5 class="card-title">Technologies it uses</h5>
+            <p class="card-text">MySQL, Java JDK 11, SpringBoot 2.6.6, Mockito, Angular, Bootstrap 5.1, Heroku</p>
+            <h5 class="card-title">Architecture and design</h5>
+            <p class="card-text">Java SOLID principles, MVC architecture, Agile workflow</p>
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Registered Partners in DB</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Function: client-side server</p>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let partner of partnersInDB">
+                        <th scope="row">{{partner.partnerId}}</th>
+                        <td>{{partner.firstName}}</td>
+                        <td>{{partner.lastName}}</td>
+                        <td>
+                          <button class="btn" (click)="onDeletePartner(partner)"><i class="fa fa-trash"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a href="/partner-login" class="btn btn-success pull-right">Login as partner</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Registered Customers in DB</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Function: client-side server</p>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let customer of customerInDB">
+                        <th scope="row">{{customer.customerId}}</th>
+                        <td>{{customer.firstName}}</td>
+                        <td>{{customer.lastName}}</td>
+                        <td>
+                          <button class="btn" (click)="onDeleteCustomer(customer)"><i class="fa fa-trash"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <a href="/customer-login" class="btn btn-success pull-right">Login as customer</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===================================================================================================================================== -->
+      <div class="card mt-3">
+        <div class="card-header text-center" id="card-header-color">
+          <h5 id="database_point_header">Designing the database</h5>
+        </div>
+        <div class="card-body">
+          <div class="card-text">
+            To be useful, our app must remember. If our customer register an event and submit a payment but resets to
+            0 when they log off, they would never use the app. We must save data in a way that allows ready access to
+            that data when needed. <br><br>
+
+            A database is a structured representation of data that we can read from and write to. Since the database
+            is seperate from the application, it can be made available to multiple applications: The data itself is
+            simply a pool that any authorized app can pull from. <br><br>
+
+            A database management system (DBMS) is a software that manages the database by executing commands. The
+            DBMS provides security, enables network access and provides admin tools for Database Admins (DBAs) to work
+            with database files. One subset of DBMs is relational database management systems (RDBMS) of which it
+            focuses on relational databases like MySQL, PostgreSQL or Oracle Database. <br><br>
+
+            While the choice of DBMS determines some factors of how data is defined and ogranized, all RDBMSs in large
+            part do the same thing. Since we understand how one RDMBS works, the knowledge can easily be transfered to
+            another. <br><br>
+          </div>
+
+          <h5 class="card-title">Normalizing to 1NF, and 2NF</h5>
+          <div class="card-text">
+            Once we gathered our data, the next step is to draw a proper Entity Relationship Diagram (ERD). This ERD
+            must satisfy criterias of both first and second normal form which are as follows: <br> <br>
+            <ol>
+              <li>No top-to-bottom ordering to the rows</li>
+              <li>No left-to-right ordering to the columns</li>
+              <li>Every row is uniquely identified</li>
+              <li>Every row-column intersection (field) contains only one value</li>
+              <li>Every non-primary-key column is dependent on the primary key but not dependant on any subset</li>
+            </ol>
+            <br>
+            <div class="card border-0"><img src="assets/images/database.png"></div>
+          </div>
+          <br>
+          <h5 class="card-title">Summary</h5>
+          <div class="card-text">
+            When we started normalizing data, there were serveral many-to-many relation. However in a normalized
+            database (at least 2NF), all relationships became either be one-to-one or (as is the case) one-to-many. If
+            there exist many-to-many relations, normalization results in X2 one-to-many and an interconnecting bridge
+            table. This app is the former case.
+          </div>
+        </div>
+
+      </div>
+      <!-- ===================================================================================================================================== -->
+      <div class="card mt-3">
+        <div class="card-header text-center" id="card-header-color">
+          <h5 id="springboot_point_header">Programming principles and architecture</h5>
+        </div>
+        <div class="card-body">
+
+          <div class="card-text mb-3">
+            In the creation of Spring Boot application, we actually write the code for the library for the Spring
+            framework to read. When a HTTP request is received, validation occuers to see if it matches any code that we
+            wrote the library. Going through the various dependency annotations like bookmarks, a HTTP response is
+            generated to be served to a frontend web server. Note that this technique is called Inversion Control. <br><br>
+
+            There are several ways to write these libraries, of which the two main ones are the model-view-controller
+            proceedure and the object-oriented principles.
+          </div>
+
+          <div class="card-text mb-3">
+            <h5 class="card-title">Model View Controller (MVC)</h5>
+            MVC is a proceedural guideline for organizing a project of multiple classes with specialized abilities.
+            The Model hosts the data and business logic, the view presents the data, and the controller coordinates
+            between model and view. MVC focuses on how the User Interface (UI) interacts with code.
+          </div>
+
+          <div class="card-text mb-3">
+            <h5 class="card-title">Object Oriented (OO)</h5>
+            OO programming is a practice in writing code to create multiple objects with unique properties and action.
+            This allows for seperation of different roles/responsibilities in different objects and hence allows for
+            the 4 principles: Encapsulation, Abstraction, Polymorphism and Inheritence. <br><br>
+
+            <b>Abstraction</b> is the simplifying of process when attaining result, which allows for interactions
+            between objects. Abstracting a complexity involves <b>Encapsulation</b>, of which the encapsulated is
+            interacted via a high-level interface. This keeps classes private and protects from external
+            modifcation. In encapsulation we control access to objects via <b>Polymorphism</b>. Polymorphism and
+            <b>Inheritance</b> go hand-in-hand through the use of the @Override annotation over a method in the
+            serviceImpl class. In the polymorphed class its ancestral abilities are initially inherited and then
+            over-written with customized business logic that serves the needs of the encapsulated and abstracted
+            class.
+          </div>
+
+          <div class="card-text mb-3">
+            <h5 class="card-title">Dependency Injections</h5>
+            <b>@RestController</b> allows handling of RESTful HTTP requests by turning any Java class into a
+            web-enabled controller: An indication that this class is able to serve HTTP response on behalf of
+            controller.<br>
+            <b>@ControllerAdvice</b> indicates the class will assist all controllers in the project. <br>
+            <b>@CrossOrigin</b> allows for CORS access control headers in the HTTP response when RESTful web
+            services is called. <br>
+            <b>@Service</b> is the class that holds business logic. <br>
+            <b>@Component</b> marks Spring-managed components. This is generally annotated on interfaces for
+            services. <br>
+            <b>@Repository</b> catches persistence-specific exceptions and throws them as Spring's exception.
+            <br>
+            <b>@Transactional</b> means every query run against the database in a method is part of a single
+            transaction; If any of the queries fail, runtime will roll back all of them. If there is a multi-tier
+            relation in the database due to foreign key constrain, the order of query is of utmost importance and must
+            be done with consideration. <br>
+            <b>@SpringBootApplication</b> causes Spring to start identifying components to initialize. It wraps
+            annotations like @Configuration, @ComponentScan and @EnableAutoConfiguration and embeds
+            CommandLineRunner.class filtering. <br>
+            <b>@RunWith</b> sets up what is handling running the test behind the scene.<br>
+            <b>@Entity</b> identifies a class as a JPA entity and is mapped to a database table, which is usually
+            specified with the @Table annotation. <br>
+          </div>
+
+          <div class="card-text">
+            <h5 class="card-title">Summary</h5>
+            Web apps are start and wait: If the web server receives a HTTP request, a method in the controller is
+            activated to generate a HTTP response from the result. <br><br>
+
+            Spring Boot Profiles are annotation-driven to manage sets of dependencies, which are grouped using
+            @Profile. Spring Boot and Spring MVC makes it easy to step in and take control of exception handling.
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===================================================================================================================================== -->
+      <div class="card mt-3">
+        <div class="card-header text-center" id="card-header-color">
+          <h5 id="unittesting_point_header">Unit testing</h5>
+        </div>
+        <div class="card-body">
+          <div class="card-text">
+            So how do we know we're done? How do we know that we've met all the requirements of the project? How do we
+            know that there are no errors? Unit testing will answer these questions. These automated tests are run
+            as part of the build process, and make sure that new code doesn't break existing code. <br><br>
+
+            <b>Black box</b> testing focuses solely on functionality of component without knowing anything about how it
+            is implemented. Black boxt testing tests interfaces, ensuring the component does what it promises [1].
+            <b>Glass
+              box</b> testing takes implementation of component into account; each code path through the component is
+            exercised. To seperate functionality from implementation we will use the black box testing approach.
+            <br><br>
+
+            In the Junit testing framework, we will use both <b>stateless</b> and <b>stateful</b> code. Stateless code
+            causes no side effects. They are like mathematical functions - If you input data is the same, it will always
+            produce the same result. In stateful code, a particular method call with identical inputs might have
+            different results depending on what happened previously. For example the first time a customer is added, the
+            system persists the customer object without error. If we try to add a a second time, an exception is thrown;
+            same input, different result. <br><br>
+
+            Hence for stateful testing, the system must first be put in a good state, and the order in which things are
+            tested must be considered. <br> <br>
+          </div>
+          <div class="card-text">
+            <h5 class="card-title">Test-Driven Development and Red-Green refactor</h5>
+            Test-Driven Development (TDD) is an approach where unit tests for a component are written before the
+            component is implemented. In this, unit tests are written first with only the interface and empty shells
+            created. After the (failing) unit tests are written then does the developer go back to write the code for
+            the UnsupportedOperationExceptions. Once all unit tests passes, the project is complete. <br><br>
+          </div>
+          <div class="card-text">
+            <h5 class="card-title">Arrange, Act, Assert</h5>
+            The general approach we will take for unit testing our code is called <b>Arrange, Act, Assert</b>. First we
+            put our code in a known good state: is it be false or true, and be initializing variables. Next we write
+            a test that acts - calling the mthod under test and capturing its return to assert on. Finally we assert
+            conditionals that proves the result is as expected, plus an extra message to display if it dos not match.
+            <br><br>
+          </div>
+          <div class="card-text">
+            <h5 class="card-title">Dependency Annotations</h5>
+            <b>@DataJpaTest</b> initializes application while ignoring irrelevant parts like MVC controllers. <br>
+            <b>@Mock</b> is a shorthand for the Mockito.mock() method. It mock-creates object of a class/interface,
+            and then we can use the mock stub to return values or objects which we can assert for verification. <br>
+            <b>@ExtendWith</b> is used to register test extensions with JUnit 5. When involving @Mock and @InjectMocks,
+            we can use @ExtendWith(MockitoExtension.class) to avoid loading unneeded Spring test framework features.
+            <br>
+            <b>@Mock</b> tells mockito to mock the database object. <br>
+            <b>@InjectMocks</b> tries to do constructor/method/field dependency injection of mock objects into other
+            types like the serviceImpl [3]. This allows Mockito to inject mocks via constructor injection, setter
+            inejection,
+            or property injection. <br>
+            <b>@Test</b> is an actual test method that will run. There should be some assert or fail call inside. <br>
+            <b>@BeforeClass</b> runs once before any tests or methods run. Use it for class-wide setup. <br>
+            <b>@AfterClass</b> runs after all other tests run. Use it for class-wide cleanup. <br>
+            <b>@Before</b> runs before each test. Use it if setup action is the same before every test. <br>
+            <b>@After</b> runs after each test. Use it if cleanup action is the same after every test. <br>
+          </div>
+        </div>
+      </div>
+      <!-- ===================================================================================================================================== -->
+      <div class="card mt-3">
+        <div class="card-header text-center" id="card-header-color">
+          <h5 id="reference_point_header">References</h5>
+        </div>
+        <div class="card-body">
+          <div class="card-text">
+            [1] - https://www.javacodegeeks.com/2015/11/getting-started-with-mockito.html <br>
+            [2] - https://www.baeldung.com/java-stream-filter-lambda <br>
+            [3] - https://www.vogella.com/tutorials/Mockito/article.html <br>
+            [4] - https://www.baeldung.com/java-oop <br>
+          </div>
+        </div>
+      </div>
+
+
+
+      <br><br><br><br>
+
+      <!-- ===================================================================================================================================== -->
+    </div>
+
+
+    <div class="col-md-3" id="right">
+      <div class="card">
+        <h5 class="card-header" id="card-header-color">Authors and source code</h5>
+        <div class="card-body">
+          <a href="https://github.com/garengh4/weddingapp-angular-1" class="link-secondary nounderline">
+            <img src="assets/images/github.png" alt=""> Code for the Angular
+          </a><br>
+          <a href="https://github.com/garengh4/weddingapp-java-1" class="link-secondary nounderline">
+            <img src="assets/images/github.png" alt=""> Code for the Java
+          </a><br>
+          <a href="https://www.linkedin.com/in/brandon-vieira-5b42b367/" class="link-secondary nounderline">
+            <img src="assets/images/linkedin.png" alt=""> Brandon V.
+          </a><br>
+          <a href="https://www.linkedin.com/in/garen-goh-74015512a/" class="link-secondary nounderline">
+            <img src="assets/images/linkedin.png" alt=""> Garen G.
+          </a><br>
+        </div>
+      </div>
+    </div>
+  </div>

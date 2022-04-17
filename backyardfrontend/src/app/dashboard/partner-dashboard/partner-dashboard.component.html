@@ -1,0 +1,79 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">backyard id</th>
+            <th scope="col">description</th>
+            <th scope="col">rating</th>
+            <th scope="col">city</th>
+            <th scope="col">cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let backyard of backyardsInDB">
+            <th scope="col">{{backyard.backyardId}}</th>
+            <td>{{backyard.backyardDescription}}</td>
+            <td>{{backyard.backyardRating}}</td>
+            <td>{{backyard.backyardCity}}</td>
+            <td>{{backyard.backyardCost}}</td>
+            <td>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+              <button class="btn btn-danger" (click)="onDeleteBackyard(backyard)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container-mt-5">
+    <div class="row">
+      <div class="col-6">
+        <div class="card card-body">
+          <h5 class="card-title">Add new backyard</h5>
+          <form [formGroup]="addBackyardForm" (ngSubmit)="onAddBackyard()">
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" class="form-control" formControlName="backyardDescription">
+            </div>
+            <div class="form-group">
+              <label>Rating</label>
+              <input type="text" class="form-control" formControlName="backyardRating">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-control" formControlName="backyardCity">
+            </div>
+            <div class="form-group">
+              <label>Cost</label>
+              <input type="text" class="form-control" formControlName="backyardCost">
+            </div>
+            <br>
+            <div class="form-group">
+              <input class="btn btn-success w-100" type="submit" value="Add Backyard">
+            </div>
+          </form>
+        </div>
+
+        <div class="card card-body mt-2 mb-5" >
+          <h5 class="card-title">Backend connection status</h5>
+          <p>success: {{successMsg}}</p>
+          <p>error: {{errMsg}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+<div class="btn-toolbar" style="padding-left: 15px">
+  <button routerLink="/partner-login" class="btn btn-danger mx-2">Logout</button>
+</div>

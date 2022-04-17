@@ -1,0 +1,38 @@
+
+a {
+  font-size: 1em;
+}
+
+a img {
+  height: 1em;
+  width: auto;
+}
+
+/* Authors and Source code */
+.nounderline {
+  text-decoration: none !important
+}
+
+#card-header-color {
+  background: rgb(234, 232, 232);
+}
+
+/* Table of Contents */
+#toc_container {
+  background: #ffffff none repeat scroll 0 0;
+  /* border: 1px solid #aaa; */
+  display: table;
+  font-size: 95%;
+  margin-bottom: 1em;
+  /* padding: 1px; */
+  /* width: auto; */
+}
+
+.toc_title {
+  font-weight: 700;
+  text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+  list-style: outside none none !important;
+}
