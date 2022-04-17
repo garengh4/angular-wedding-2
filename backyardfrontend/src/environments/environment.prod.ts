@@ -1,5 +1,5 @@
 
-const apiBaseUrl: string = 'https://weddingjava-app-1.herokuapp.com'
+const apiBaseUrl: string = 'https://weddingjava-app-2.herokuapp.com'
 const APPLICATION_NAME: string = '/wedding'
 
 export const environment = {
