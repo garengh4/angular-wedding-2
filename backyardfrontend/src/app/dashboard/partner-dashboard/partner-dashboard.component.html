@@ -4,20 +4,23 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">backyard id</th>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
             <th scope="col">description</th>
-            <th scope="col">rating</th>
             <th scope="col">city</th>
             <th scope="col">cost</th>
+            <th scope="col">contact</th>
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let backyard of backyardsInDB">
             <th scope="col">{{backyard.backyardId}}</th>
+            <td>{{backyard.backyardName}}</td>
             <td>{{backyard.backyardDescription}}</td>
-            <td>{{backyard.backyardRating}}</td>
             <td>{{backyard.backyardCity}}</td>
             <td>{{backyard.backyardCost}}</td>
+            <td>{{backyard.partnerEmailId}}</td>
             <td>
               <button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
               <button class="btn btn-danger" (click)="onDeleteBackyard(backyard)">
@@ -30,50 +33,39 @@
     </div>
   </div>
 
-  <div class="container-mt-5">
-    <div class="row">
-      <div class="col-6">
-        <div class="card card-body">
-          <h5 class="card-title">Add new backyard</h5>
+  <button type="button" class="btn btn-success pull-right" (click)="openPopup()">Add new backyard</button>
+  <div style="backdrop-filter: blur(5px);" class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add new backyard</h4>
+        </div>
+        <div class="modal-body">
           <form [formGroup]="addBackyardForm" (ngSubmit)="onAddBackyard()">
             <div class="form-group">
-              <label>Description</label>
+              <label>Your backyard name:</label>
+              <input type="text" class="form-control" formControlName="backyardName">
+            </div>
+            <div class="form-group">
+              <label>Describe your backyard:</label>
               <input type="text" class="form-control" formControlName="backyardDescription">
             </div>
             <div class="form-group">
-              <label>Rating</label>
-              <input type="text" class="form-control" formControlName="backyardRating">
-            </div>
-            <div class="form-group">
-              <label>City</label>
+              <label>City location:</label>
               <input type="text" class="form-control" formControlName="backyardCity">
             </div>
             <div class="form-group">
-              <label>Cost</label>
+              <label>Cost of renting your backyard: </label>
               <input type="text" class="form-control" formControlName="backyardCost">
             </div>
             <br>
-            <div class="form-group">
-              <input class="btn btn-success w-100" type="submit" value="Add Backyard">
+            <div class="form-group modal-footer">
+              <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+              <input class="btn btn-success" type="submit" value="Add Backyard">
             </div>
           </form>
-        </div>
-
-        <div class="card card-body mt-2 mb-5" >
-          <h5 class="card-title">Backend connection status</h5>
-          <p>success: {{successMsg}}</p>
-          <p>error: {{errMsg}}</p>
         </div>
       </div>
     </div>
   </div>
-
-
-
-</div>
-
-
-
-<div class="btn-toolbar" style="padding-left: 15px">
-  <button routerLink="/partner-login" class="btn btn-danger mx-2">Logout</button>
 </div>

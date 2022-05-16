@@ -33,7 +33,7 @@ export class CustomerDashboardComponent implements OnInit {
   }
 
   public getCustomerEvents(): void {
-    this.customerDashboardService.getCustomerEvents(this.loggedInCustomer.customerId).subscribe({
+    this.customerDashboardService.getCustomerEvents(this.loggedInCustomer.customerEmailId).subscribe({
       next: response => {
         this.eventsInDB = response;
       }, error: response => {

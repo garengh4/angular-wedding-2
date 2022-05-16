@@ -11,12 +11,12 @@ export class ShowAllEventsService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEvents(customerId: number): Observable<Events[]> {
-    return this.http.get<Events[]>(environment.customerApiUrl + "/getallevents/" + customerId);
+  getCustomerEvents(customerEmailId: string): Observable<Events[]> {
+    return this.http.get<Events[]>(environment.customerApiUrl + "/event/" + customerEmailId + '/getall');
   }
 
-  deleteEvent(eventId: number): Observable<string> {
-    return this.http.delete<string>(environment.customerApiUrl + "/deleteevent/" + eventId);
+  deleteCustomerEvents(customerEmailId: string, eventId: number): Observable<string> {
+    return this.http.delete<string>(environment.customerApiUrl + "/event/" + customerEmailId + '/delete/' + eventId);
   }
 
   updateEvent(event: Events): Observable<Events> {

@@ -14,12 +14,12 @@ export class PartnerSignupService {
   constructor(private http: HttpClient) { }
 
   public registerNewPartner(partner: Partner): Observable<string> { //return type string to allow success/err messages to be passed
-    let url: string = environment.partnerApiUrl + '/register';
+    let url: string = environment.partnerApiUrl + '/partner/register';
     return this.http.post<string>(url, partner, { headers: this.headers, responseType: 'text' as 'json' });
   }
 
-  public deletePartner(partnerId: number): Observable<string> {
-    let url: string = environment.partnerApiUrl + '/deletepartner/' + partnerId;
+  public deletePartner(partnerEmailId: string): Observable<string> {
+    let url: string = environment.partnerApiUrl + '/partner/' + partnerEmailId + '/delete';
     return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
   }
 }

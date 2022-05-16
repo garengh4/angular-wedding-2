@@ -31,9 +31,10 @@ export class PartnerLoginComponent implements OnInit {
 
   public createLoginForm(): void {
     this.loginPartnerForm = this.fb.group({
-      partnerId: [this.loginPartner.partnerId, [Validators.required], null],
+      partnerEmailId: [this.loginPartner.partnerEmailId, [Validators.required], null],
       firstName: [this.loginPartner.firstName, [Validators.required], null],
-      lastName: [this.loginPartner.lastName, [Validators.required], null]
+      lastName: [this.loginPartner.lastName, [Validators.required], null],
+      password: [this.loginPartner.password, [Validators.required], null],
     })
   }
 
@@ -43,19 +44,17 @@ export class PartnerLoginComponent implements OnInit {
     this.successMsg = '';
     this.loginPartner = this.loginPartnerForm.value as Partner;
 
-    this.partnerLoginService.login(this.loginPartner).subscribe({
+    this.partnerLoginService.authenticatePartner(this.loginPartner).subscribe({
       next: response => {
         this.loginPartner = response;
 
         sessionStorage.setItem('loggedInPartner', JSON.stringify(this.loginPartner)); //some bug here in name towards 'loggedInPartner'
-
-        console.log(this.loginPartner);
         
         this.tryToLogin = false;
         this.router.navigate(['/partner-dashboard']);
       }, error: response => {
         this.tryToLogin = false;
-        this.errMsg = response;
+        this.errMsg = <any> response;
       }
     })
   }

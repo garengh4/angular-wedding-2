@@ -12,7 +12,6 @@
               <th scope="col">Event Name</th>
               <th scope="col">Date</th>
               <th scope="col">backyard Id</th>
-              <th scope="col">your Id</th>
             </tr>
           </thead>
           <tbody>
@@ -20,7 +19,6 @@
               <td>{{event.eventName}}</td>
               <td>{{event.eventDate}}</td>
               <td>{{event.backyardId}}</td>
-              <td>{{event.customerId}}</td>
               <td>
                 <!-- <app-update-event [event]="event" (notify)="showUpdateForm(event)"></app-update-event> -->
                 <button class="btn" (click)="onDeleteEvent(event)"><i class="fa fa-trash"></i></button>
@@ -54,7 +52,6 @@
                   [routerLink]="['/customer-create-event', backyard.backyardId]">{{backyard.backyardId}}</a>
               </th>
               <td>{{backyard.backyardDescription}}</td>
-              <td>{{backyard.backyardRating}}</td>
               <td>{{backyard.backyardCity}}</td>
               <td>{{backyard.backyardCost}}</td>
             </tr>

@@ -10,16 +10,12 @@
 
         <form [formGroup]="loginPartnerForm" (ngSubmit)="onLoginPartner()">
           <div class="form-group">
-            <label>Partner Id: </label>
-            <input type="text" class="form-control" formControlName="partnerId">
+            <label>Email:</label>
+            <input type="text" class="form-control" formControlName="partnerEmailId">
           </div>
           <div class="form-group">
-            <label>First Name: </label>
-            <input type="text" class="form-control" formControlName="firstName">
-          </div>
-          <div class="form-group">
-            <label>Last Name: </label>
-            <input type="text" class="form-control" formControlName="lastName">
+            <label>Password: </label>
+            <input type="text" class="form-control" formControlName="password">
           </div>
           <br>
           <div class="form-group">

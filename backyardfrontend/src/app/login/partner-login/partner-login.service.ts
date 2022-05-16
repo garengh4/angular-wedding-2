@@ -13,8 +13,8 @@ export class PartnerLoginService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) { }
 
-  public login(partner: Partner): Observable<Partner> {
-    let url = environment.partnerApiUrl + '/authenticate';
+  public authenticatePartner(partner: Partner): Observable<Partner> {
+    let url = environment.partnerApiUrl + '/partner/authenticate';
     return this.http.post<Partner>(url, partner, { headers: this.headers });
   }
 

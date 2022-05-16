@@ -29,7 +29,7 @@ export class ShowAllEventsComponent implements OnInit {
 
   getAllEvents() {
     this.loggedInCustomer = JSON.parse(sessionStorage.getItem("loggedInCustomer") || '{}'); //some bug here in name 'loggedInPartner'
-    this.showEventsService.getAllEvents(this.loggedInCustomer.customerId).subscribe(
+    this.showEventsService.getCustomerEvents(this.loggedInCustomer.customerEmailId).subscribe(
       (success) => { this.eventsInDB = success },
       (error) => { this.errMsg = error }
     );
@@ -45,14 +45,14 @@ export class ShowAllEventsComponent implements OnInit {
   // Auto populates the update form with the original values of the Event which we are updating
   createUpdateFormMethod(event: Events) {
     this.loggedInCustomer = JSON.parse(sessionStorage.getItem("loggedInCustomer") || '{}');
-    this.custId = this.loggedInCustomer.customerId;
+    this.custId = this.loggedInCustomer.customerEmailId;
     this.updateEventForm = this.fb.group({
       eventName: [event.eventName, Validators.required],
+      eventDescription: [event.eventDescription, Validators.required],
       eventDate: [event.eventDate, Validators.required],
+      customerEmailId: [this.custId, Validators.required],
       backyardId: [event.backyardId, Validators.required],
-      customerId: [this.custId, Validators.required],
       eventId: [event.eventId, Validators.required]
-
     });
 
   }
@@ -74,7 +74,7 @@ export class ShowAllEventsComponent implements OnInit {
   }
 
   delete(event: Events) {
-    this.showEventsService.deleteEvent(event.eventId).subscribe(
+    this.showEventsService.deleteCustomerEvents(this.loggedInCustomer.customerEmailId, event.eventId).subscribe(
       (success) => { },
       (error) => { }
     );

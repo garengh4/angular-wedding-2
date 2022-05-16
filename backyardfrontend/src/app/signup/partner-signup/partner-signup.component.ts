@@ -27,7 +27,9 @@ export class PartnerSignupComponent implements OnInit{
   public createPartnerForm(): void {   // can be used for frontend validations when adding new partner?
     this.signupPartnerForm = this.fb.group({
       firstName: [this.newPartner.firstName, [Validators.required], null],
-      lastName: [this.newPartner.lastName, [Validators.required], null]
+      lastName: [this.newPartner.lastName, [Validators.required], null],
+      partnerEmailId: [this.newPartner.partnerEmailId, [Validators.required], null],
+      password: [this.newPartner.password, [Validators.required], null]
     });
   }
 

@@ -19,8 +19,8 @@ export class CustomerDashboardService {
     return this.http.get<Backyard[]>(url);
   }
 
-  public getCustomerEvents(customerId: number): Observable<Events[]> {
-    let url: string = environment.customerApiUrl + '/getallevents/' + customerId;
+  public getCustomerEvents(customerEmailId: string): Observable<Events[]> {
+    let url: string = environment.customerApiUrl + '/getallevents/' + customerEmailId;
     return this.http.get<Events[]>(url);
   }
 

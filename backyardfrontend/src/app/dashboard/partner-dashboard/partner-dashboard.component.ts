@@ -34,7 +34,7 @@ export class PartnerDashboardComponent implements OnInit {
   }
 
   public getPartnerBackyards(): void {
-    this.partnerDashboardService.getPartnerBackyards(this.loggedInPartner.partnerId).subscribe(
+    this.partnerDashboardService.getPartnerBackyards(this.loggedInPartner.partnerEmailId).subscribe(
       response => {
         this.backyardsInDB = response;
         // sessionStorage.setItem("backyard", JSON.stringify(this.backyardsInDB));
@@ -48,8 +48,8 @@ export class PartnerDashboardComponent implements OnInit {
 
   public createBackyardForm(): void {
     this.addBackyardForm = this.fb.group({
+      backyardName: [this.newBackyard.backyardName, [Validators.required], null],
       backyardDescription: [this.newBackyard.backyardDescription, [Validators.required], null],
-      backyardRating: [this.newBackyard.backyardRating, [Validators.required], null],
       backyardCity: [this.newBackyard.backyardCity, [Validators.required], null],
       backyardCost: [this.newBackyard.backyardCost, [Validators.required], null]
     })
@@ -59,9 +59,9 @@ export class PartnerDashboardComponent implements OnInit {
     this.errMsg = '';
     this.successMsg = '';
     this.newBackyard = this.addBackyardForm.value as Backyard;
-    this.partnerDashboardService.addPartnerBackyard(this.loggedInPartner.partnerId, this.newBackyard).subscribe({
+    this.partnerDashboardService.addBackyardToPartner(this.loggedInPartner.partnerEmailId, this.newBackyard).subscribe({
       next: response => {
-        this.newBackyard.partnerId = this.loggedInPartner.partnerId;
+        this.newBackyard.partnerEmailId = this.loggedInPartner.partnerEmailId;
         this.successMsg = response;
         this.addBackyardForm.reset();
         this.getPartnerBackyards(); //updates partner backyard table immediately
@@ -76,7 +76,7 @@ export class PartnerDashboardComponent implements OnInit {
   toBeDeletedBackyard: Backyard = new Backyard;
 
   public onDeleteBackyard(toBeDeletedBackyard: Backyard): void {
-    this.partnerDashboardService.deletePartnerBackyard(toBeDeletedBackyard.backyardId).subscribe({
+    this.partnerDashboardService.deletePartnerBackyard(toBeDeletedBackyard.partnerEmailId,toBeDeletedBackyard.backyardId).subscribe({
       next: response => {
         this.successMsg = response;
         this.getPartnerBackyards(); //updates table when delete
@@ -87,7 +87,17 @@ export class PartnerDashboardComponent implements OnInit {
       }
     })
   }
-
+  
+  /* ====================================================================================================================================================== */
+  // modal section
+  displayStyle = "none";
+  
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
+  }
 
 
 }

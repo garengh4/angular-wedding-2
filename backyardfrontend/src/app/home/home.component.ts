@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   deletePartner: Partner = new Partner;
 
   public onDeletePartner(deletePartner: Partner): void {
-    this.homeService.deletePartner(deletePartner.partnerId).subscribe({
+    this.homeService.deletePartner(deletePartner.partnerEmailId).subscribe({
       next: response => {
         this.successMsg = response;
         console.log(this.successMsg);
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
   deleteCustomer: Customer = new Customer;
 
   public onDeleteCustomer(deleteCustomer: Customer): void {
-    this.homeService.deleteCustomer(deleteCustomer.customerId).subscribe({
+    this.homeService.deleteCustomer(deleteCustomer.customerEmailId).subscribe({
       next: response => {
         this.successMsg = response;
         console.log(this.successMsg);

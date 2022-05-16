@@ -15,22 +15,23 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   public getAllPartner(): Observable<Partner[]> {
-    let url: string = environment.partnerApiUrl + "/getall";
+    let url: string = environment.partnerApiUrl + "/partner/getall";
     return this.http.get<Partner[]>(url);
   }
 
-  public deletePartner(partnerId: number): Observable<string> {
-    let url: string = environment.partnerApiUrl + '/delete/' + partnerId;
+  public deletePartner(partnerEmailId: string): Observable<string> {
+    let url: string = environment.partnerApiUrl + '/partner/' + partnerEmailId + '/delete';
     return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
   }
 
+  // ==================================================================================================================
   public getAllCustomers(): Observable<Customer[]> {
-    let url: string = environment.customerApiUrl + '/getall'
+    let url: string = environment.customerApiUrl + '/customer/getall'
     return this.http.get<Customer[]>(url);
   }
 
-  public deleteCustomer(customerId: number): Observable<string> {
-    let url: string = environment.customerApiUrl + '/delete/' + customerId;
+  public deleteCustomer(customerEmailId: string): Observable<string> {
+    let url: string = environment.customerApiUrl + '/delete/' + customerEmailId + '/delete';
     return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
   }
 }

@@ -48,9 +48,9 @@ export class CustomerCreateEventComponent implements OnInit {
     this.successMsg = '';
     this.errMsg = '';
     this.newEvent = this.addEventForm.value as Events;
-    this.customerCreateService.addEventForCustomer(this.loggedInCustomer.customerId, this.newEvent).subscribe({
+    this.customerCreateService.addEventForCustomer(this.loggedInCustomer.customerEmailId, this.newEvent).subscribe({
       next: response => {
-        this.newEvent.customerId = this.loggedInCustomer.customerId;
+        this.newEvent.customerEmailId = this.loggedInCustomer.customerEmailId;
         this.successMsg = response;
         this.addEventForm.reset();
       }, error: response => {

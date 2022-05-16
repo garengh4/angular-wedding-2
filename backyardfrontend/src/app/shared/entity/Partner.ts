@@ -1,6 +1,6 @@
 export class Partner {
-  partnerId: number;
+  partnerEmailId: string;
   firstName: string;
   lastName: string;
-  partnerRating: number;
+  password: string;
 }
