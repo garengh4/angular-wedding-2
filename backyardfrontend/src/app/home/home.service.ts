@@ -31,7 +31,7 @@ export class HomeService {
   }
 
   public deleteCustomer(customerEmailId: string): Observable<string> {
-    let url: string = environment.customerApiUrl + '/delete/' + customerEmailId + '/delete';
+    let url: string = environment.customerApiUrl + '/customer/' + customerEmailId + '/delete';
     return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
   }
 }

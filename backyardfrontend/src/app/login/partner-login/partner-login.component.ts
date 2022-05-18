@@ -21,11 +21,10 @@ export class PartnerLoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loginPartner = new Partner();
     this.createLoginForm();
   }
 
-  loginPartner: Partner = new Partner;
+  loginPartner: Partner = new Partner();
   tryToLogin: boolean = false;
   loginPartnerForm: FormGroup;
 

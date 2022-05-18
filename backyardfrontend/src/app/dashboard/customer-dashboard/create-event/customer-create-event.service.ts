@@ -12,8 +12,8 @@ export class CustomerCreateEventService {
 
   constructor(private http: HttpClient) { }
 
-  public addEventForCustomer(customerEmailId: string, event: Events): Observable<string> {
-    let url: string = environment.customerApiUrl + '/addevent/' + customerEmailId;
+  public addEventToCustomer(customerEmailId: string, event: Events): Observable<string> {
+    let url: string = environment.customerApiUrl + '/event/' + customerEmailId + '/add';
     return this.http.post<string>(url, event, { headers: this.headers, responseType: 'text' as 'json' });
   }
 }

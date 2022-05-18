@@ -15,17 +15,17 @@ export class CustomerDashboardService {
   constructor(private http: HttpClient) { }
 
   public getAllBackyards(): Observable<Backyard[]> {
-    let url: string = environment.customerApiUrl + '/getallbackyards'
+    let url: string = environment.partnerApiUrl + '/backyard/getall'
     return this.http.get<Backyard[]>(url);
   }
 
   public getCustomerEvents(customerEmailId: string): Observable<Events[]> {
-    let url: string = environment.customerApiUrl + '/getallevents/' + customerEmailId;
+    let url: string = environment.customerApiUrl + '/event/' + customerEmailId +'/getall';
     return this.http.get<Events[]>(url);
   }
 
-  public deleteCustomerEvent(eventId: number): Observable<string> {
-    let url: string = environment.customerApiUrl + '/deleteevent/' + eventId;
+  public deleteCustomerEvent(customerEmailId: string, eventId: number): Observable<string> {
+    let url: string = environment.customerApiUrl + '/event/' + customerEmailId + '/delete/' + eventId;
     return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
   }
 

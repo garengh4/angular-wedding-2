@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CustomerCreateEventComponent } from "./dashboard/customer-dashboard/create-event/customer-create-event.component";
 import { CustomerDashboardComponent } from "./dashboard/customer-dashboard/customer-dashboard.component";
-import { ShowAllEventsComponent } from "./dashboard/customer-dashboard/show-all-events/show-all-events.component";
 import { PartnerDashboardComponent } from "./dashboard/partner-dashboard/partner-dashboard.component";
 import { HomeComponent } from "./home/home.component";
 import { CustomerLoginComponent } from "./login/customer-login/customer-login.component";
@@ -20,7 +19,6 @@ const routes: Routes=[
   { path: 'customer-signup', component: CustomerSignupComponent},
   { path: 'customer-dashboard', component: CustomerDashboardComponent},
   { path: 'customer-create-event/:backyardId', component: CustomerCreateEventComponent},
-  { path: 'show-all-events', component: ShowAllEventsComponent}
 ]
 
 @NgModule({

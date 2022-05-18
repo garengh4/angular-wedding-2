@@ -10,16 +10,12 @@
 
         <form [formGroup]="loginCustomerForm" (ngSubmit)="onLoginCustomer()">
           <div class="form-group">
-            <label>Customer Id: </label>
-            <input type="text" class="form-control" formControlName="customerId">
+            <label>Email:</label>
+            <input type="text" class="form-control" formControlName="customerEmailId">
           </div>
           <div class="form-group">
-            <label>First Name: </label>
-            <input type="text" class="form-control" formControlName="firstName">
-          </div>
-          <div class="form-group">
-            <label>Last Name: </label>
-            <input type="text" class="form-control" formControlName="lastName">
+            <label>Password: </label>
+            <input type="text" class="form-control" formControlName="password">
           </div>
           <br>
           <div class="form-group">
@@ -30,7 +26,7 @@
           <a routerLink="/customer-signup">New Customer? Click to sign up!</a>
       </div>
 
-      <div class="card card-body mt-5">
+      <div class="card card-body mt-2">
         <h5 class="card-title">Backend connection status</h5>
         <p>success: {{successMsg}}</p>
         <p>error: {{errMsg}}</p>

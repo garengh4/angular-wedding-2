@@ -15,11 +15,12 @@ export class CustomerCreateEventComponent implements OnInit {
   errMsg: string;
   loggedInCustomer: Customer;
   newEvent: Events;
-  customerId: number;
 
-  constructor(private fb: FormBuilder, private customerCreateService: CustomerCreateEventService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private customerCreateService: CustomerCreateEventService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const routeParam = this.route.snapshot.paramMap;
@@ -48,7 +49,7 @@ export class CustomerCreateEventComponent implements OnInit {
     this.successMsg = '';
     this.errMsg = '';
     this.newEvent = this.addEventForm.value as Events;
-    this.customerCreateService.addEventForCustomer(this.loggedInCustomer.customerEmailId, this.newEvent).subscribe({
+    this.customerCreateService.addEventToCustomer(this.loggedInCustomer.customerEmailId, this.newEvent).subscribe({
       next: response => {
         this.newEvent.customerEmailId = this.loggedInCustomer.customerEmailId;
         this.successMsg = response;

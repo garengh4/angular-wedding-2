@@ -9,6 +9,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th scope="col">id</th>
               <th scope="col">Event Name</th>
               <th scope="col">Date</th>
               <th scope="col">backyard Id</th>
@@ -16,6 +17,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let event of eventsInDB">
+              <td>{{event.eventId}}</td>
               <td>{{event.eventName}}</td>
               <td>{{event.eventDate}}</td>
               <td>{{event.backyardId}}</td>
@@ -40,10 +42,11 @@
           <thead>
             <tr>
               <th scope="col">id</th>
-              <th scope="col">description</th>
-              <th scope="col">rating</th>
-              <th scope="col">city</th>
-              <th scope="col">cost</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">City</th>
+              <th scope="col">Cost</th>
+              <th scope="col">Owner</th>
             </tr>
           </thead>
           <tbody>
@@ -51,17 +54,17 @@
               <th scope="col"><a
                   [routerLink]="['/customer-create-event', backyard.backyardId]">{{backyard.backyardId}}</a>
               </th>
+              <td>{{backyard.backyardName}}</td>
               <td>{{backyard.backyardDescription}}</td>
               <td>{{backyard.backyardCity}}</td>
               <td>{{backyard.backyardCost}}</td>
+              <td>{{backyard.partnerEmailId}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
-
 </div>
 
 
@@ -69,7 +72,5 @@
 
 
 <div class="btn-toolbar" style="padding-left: 15px">
-  <button routerLink="/show-all-events" class="btn btn-primary mx-2">Show All Events</button>
-
   <button routerLink="/customer-login" class="btn btn-danger mx-2">Logout</button>
 </div>

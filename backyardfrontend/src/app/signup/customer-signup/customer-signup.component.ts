@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Customer } from 'src/app/shared/entity/Customer';
 import { CustomerSignupService } from './customer-signup.service';
 
@@ -11,32 +11,41 @@ import { CustomerSignupService } from './customer-signup.service';
 export class CustomerSignupComponent implements OnInit {
   successMsg = '';
   errMsg = '';
-  newCustomer: Customer;
+  newCustomer: Customer = new Customer;
 
-  constructor(private fb: FormBuilder, private rest: CustomerSignupService) { }
-
-  signupCustomerForm = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required]
-    })
+  constructor(
+    private fb: FormBuilder,
+    private customerSignupService: CustomerSignupService
+  ) { }
 
   ngOnInit(): void {
+    this.createCustomerForm();
   }
 
-  onSignupCustomer() {
-    this.successMsg = '';
+  signupCustomerForm: FormGroup;
+
+  public createCustomerForm(): void {
+    this.signupCustomerForm = this.fb.group({
+      firstName: [this.newCustomer.firstName, [Validators.required], null],
+      lastName: [this.newCustomer.lastName, [Validators.required], null],
+      customerEmailId: [this.newCustomer.customerEmailId, [Validators.required], null],
+      password: [this.newCustomer.password, [Validators.required], null]
+    })
+  }
+
+  public onSignupCustomer(): void {
     this.errMsg = '';
-    this.newCustomer = this.signupCustomerForm.value as Customer;
-    this.rest.addCustomer(this.newCustomer).subscribe(
-      (success) => {
-        this.successMsg = success;
-        this.signupCustomerForm.reset() 
-        },
-      (error) => {
-        console.log(error);
-        this.errMsg = <any> error; }
-    );
-
+    this.successMsg = '';
+    this.newCustomer = this.signupCustomerForm.value as Customer; // passing values into Partner, then into service
+    this.customerSignupService.registerNewCustomer(this.newCustomer).subscribe({
+      next: msg => {
+        this.successMsg = msg;
+        this.signupCustomerForm.reset();
+      },
+      error: msg => {
+        console.log(msg);
+        this.errMsg = <any>msg;
+      }
+    })
   }
-
 }

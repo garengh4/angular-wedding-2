@@ -56,7 +56,7 @@ export class CustomerDashboardComponent implements OnInit {
   toBeDeletedEvent: Events= new Events;
 
   public onDeleteEvent(toBeDeletedEvent: Events) {
-    this.customerDashboardService.deleteCustomerEvent(toBeDeletedEvent.eventId).subscribe({
+    this.customerDashboardService.deleteCustomerEvent(this.loggedInCustomer.customerEmailId, toBeDeletedEvent.eventId).subscribe({
       next: response => {
         this.successMsg = response;
         this.getCustomerEvents();

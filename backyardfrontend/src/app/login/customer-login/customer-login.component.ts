@@ -13,42 +13,41 @@ export class CustomerLoginComponent implements OnInit {
   successMsg: string;
   errMsg: string;
 
-
-  constructor(private fb: FormBuilder, 
+  constructor(
+    private fb: FormBuilder,
     private customerLoginService: CustomerLoginService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.createLoginForm();
   }
 
-  loginCustomer: Customer;
-  tryToLogin: boolean = false;
+  loginCustomer: Customer = new Customer();;
+  tryToLogin: boolean = false;  
   loginCustomerForm: FormGroup;
 
   public createLoginForm(): void {
     this.loginCustomerForm = this.fb.group({
-    customerId: ['', [Validators.required], null],
-    firstName: ['', [Validators.required], null],
-    lastName: ['', [Validators.required], null]
-  })
-}
+      customerEmailId: [this.loginCustomer.customerEmailId, [Validators.required], null],
+      firstName: [this.loginCustomer.firstName, [Validators.required], null],
+      lastName: [this.loginCustomer.lastName, [Validators.required], null],
+      password: [this.loginCustomer.password, [Validators.required], null]
+    })
+  }
 
-  onLoginCustomer() {
+  public onLoginCustomer(): void {
     this.tryToLogin = true;
     this.errMsg = '';
     this.successMsg = '';
     this.loginCustomer = this.loginCustomerForm.value as Customer;
 
-    this.customerLoginService.login(this.loginCustomer).subscribe({
+    this.customerLoginService.authenticateCustomer(this.loginCustomer).subscribe({
       next: msg => {
         this.loginCustomer = msg;
 
         sessionStorage.setItem('loggedInCustomer', JSON.stringify(this.loginCustomer)); //some bug here in name towards 'loggedInPartner'
 
-        console.log(this.loginCustomer);
-        
         this.tryToLogin = false;
         this.router.navigate(['/customer-dashboard']);
       }, error: msg => {
@@ -58,6 +57,6 @@ export class CustomerLoginComponent implements OnInit {
     })
   }
 
-  
+
 
 }

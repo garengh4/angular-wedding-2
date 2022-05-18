@@ -16,11 +16,8 @@ import { CustomerDashboardComponent } from './dashboard/customer-dashboard/custo
 import { CustomerSignupComponent } from './signup/customer-signup/customer-signup.component';
 import { CustomerSignupService } from './signup/customer-signup/customer-signup.service';
 import { CustomerCreateEventComponent } from './dashboard/customer-dashboard/create-event/customer-create-event.component';
-import { ShowAllEventsComponent } from './dashboard/customer-dashboard/show-all-events/show-all-events.component';
 import { CustomerCreateEventService } from './dashboard/customer-dashboard/create-event/customer-create-event.service';
-import { ShowAllEventsService } from './dashboard/customer-dashboard/show-all-events/show-all-events.service';
 import { CustomerDashboardService } from './dashboard/customer-dashboard/customer-dashboard.service';
-import { UpdateEventComponent } from './dashboard/customer-dashboard/update-event/update-event.component';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home/home.service';
 
@@ -35,8 +32,6 @@ import { HomeService } from './home/home.service';
     CustomerDashboardComponent,
     CustomerSignupComponent,
     CustomerCreateEventComponent,
-    ShowAllEventsComponent,
-    UpdateEventComponent
   ],
   imports: [
     BrowserModule,
@@ -52,8 +47,7 @@ import { HomeService } from './home/home.service';
     CustomerDashboardService,
     PartnerDashboardService,
     CustomerSignupService,
-    CustomerCreateEventService,
-    ShowAllEventsService
+    CustomerCreateEventService
 
   ],
   bootstrap: [AppComponent]

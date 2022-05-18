@@ -13,7 +13,11 @@ export class CustomerSignupService {
 
   constructor(private http: HttpClient) { }
 
-  public addCustomer(customer: Customer): Observable<string> {
-    return this.http.post<string>((environment.customerApiUrl + "/register"), customer, { headers: this.headers, responseType: 'text' as 'json' });
+  public registerNewCustomer(customer: Customer): Observable<string> {
+    let url: string = environment.customerApiUrl + '/customer/register';
+
+    return this.http.post<string>(url, customer, { headers: this.headers, responseType: 'text' as 'json' });
   }
+
+
 }

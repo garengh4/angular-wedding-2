@@ -12,8 +12,8 @@ export class CustomerLoginService {
 
   constructor(private http: HttpClient) { }
 
-  public login(customer: Customer): Observable<Customer> {
-    let url = environment.customerApiUrl + '/authenticate';
+  public authenticateCustomer(customer: Customer): Observable<Customer> {
+    let url = environment.customerApiUrl + '/customer/authenticate';
     return this.http.post<Customer>(url, customer, { headers: this.headers });
 
   }

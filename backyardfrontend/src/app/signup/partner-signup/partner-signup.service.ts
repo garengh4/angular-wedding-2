@@ -17,9 +17,4 @@ export class PartnerSignupService {
     let url: string = environment.partnerApiUrl + '/partner/register';
     return this.http.post<string>(url, partner, { headers: this.headers, responseType: 'text' as 'json' });
   }
-
-  public deletePartner(partnerEmailId: string): Observable<string> {
-    let url: string = environment.partnerApiUrl + '/partner/' + partnerEmailId + '/delete';
-    return this.http.delete<string>(url, { headers: this.headers, responseType: 'text' as 'json' });
-  }
 }
