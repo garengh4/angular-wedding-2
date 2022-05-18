@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">city</th>
+            <th scope="col">cost</th>
+            <th scope="col">contact</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let backyard of backyardsInDB">
+            <th scope="col">{{backyard.backyardId}}</th>
+            <td>{{backyard.backyardName}}</td>
+            <td>{{backyard.backyardDescription}}</td>
+            <td>{{backyard.backyardCity}}</td>
+            <td>{{backyard.backyardCost}}</td>
+            <td>{{backyard.partnerEmailId}}</td>
+            <td>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+              <button class="btn btn-danger" (click)="onDeleteBackyard(backyard)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-success pull-right" (click)="openPopup()">Add new backyard</button>
+  <div style="backdrop-filter: blur(5px);" class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add new backyard</h4>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="addBackyardForm" (ngSubmit)="onAddBackyard()">
+            <div class="form-group">
+              <label>Your backyard name:</label>
+              <input type="text" class="form-control" formControlName="backyardName">
+            </div>
+            <div class="form-group">
+              <label>Describe your backyard:</label>
+              <input type="text" class="form-control" formControlName="backyardDescription">
+            </div>
+            <div class="form-group">
+              <label>City location:</label>
+              <input type="text" class="form-control" formControlName="backyardCity">
+            </div>
+            <div class="form-group">
+              <label>Cost of renting your backyard: </label>
+              <input type="text" class="form-control" formControlName="backyardCost">
+            </div>
+            <br>
+            <div class="form-group modal-footer">
+              <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+              <input class="btn btn-success" type="submit" value="Add Backyard">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

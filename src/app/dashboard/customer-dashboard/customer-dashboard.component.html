@@ -1,0 +1,76 @@
+<div class="row mt-3">
+
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header" id="card-header-color">
+        <h5 class="card-title">Your upcoming events</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Event Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">backyard Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of eventsInDB">
+              <td>{{event.eventId}}</td>
+              <td>{{event.eventName}}</td>
+              <td>{{event.eventDate}}</td>
+              <td>{{event.backyardId}}</td>
+              <td>
+                <!-- <app-update-event [event]="event" (notify)="showUpdateForm(event)"></app-update-event> -->
+                <button class="btn" (click)="onDeleteEvent(event)"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header" id="card-header-color">
+        <h5 class="card-title">Available backyards in your area</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">City</th>
+              <th scope="col">Cost</th>
+              <th scope="col">Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let backyard of backyardsInDB">
+              <th scope="col"><a
+                  [routerLink]="['/customer-create-event', backyard.backyardId]">{{backyard.backyardId}}</a>
+              </th>
+              <td>{{backyard.backyardName}}</td>
+              <td>{{backyard.backyardDescription}}</td>
+              <td>{{backyard.backyardCity}}</td>
+              <td>{{backyard.backyardCost}}</td>
+              <td>{{backyard.partnerEmailId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="btn-toolbar" style="padding-left: 15px">
+  <button routerLink="/customer-login" class="btn btn-danger mx-2">Logout</button>
+</div>
