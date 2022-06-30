@@ -3,6 +3,7 @@
 
 ******Project:******  
 weddingapp-angular-2
+URL: https://weddingangular-app-2.herokuapp.com/home
 
   
 ******Overview:******  
