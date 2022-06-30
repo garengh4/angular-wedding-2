@@ -2,8 +2,8 @@
 
 
 ******Project:******  
-weddingapp-angular-2 <br>
-URL: https://weddingangular-app-2.herokuapp.com/home
+Title: wedding-app <br>
+Url: https://weddingangular-app-2.herokuapp.com/home
 
   
 ******Overview:******  
